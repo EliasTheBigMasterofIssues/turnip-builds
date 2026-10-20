@@ -45,16 +45,25 @@ check_deps(){
 }
 
 
-
 prepare_workdir(){
 	echo "Creating and entering to work directory ..." $'\n'
 	mkdir -p "$workdir" && cd "$_"
 
+	
+	
 	echo "Downloading android-ndk from google server (~640 MB) ..." $'\n'
 	curl https://dl.google.com/android/repository/"$ndkver"-linux.zip --output "$ndkver"-linux.zip &> /dev/null
 	###
 	echo "Exracting android-ndk to a folder ..." $'\n'
 	unzip "$ndkver"-linux.zip  &> /dev/null
+	mkdir "$ndkver"-linux/pkgconfig/
+	
+	echo "Downloading libdrm-devel from debian repository"
+	wget http://mirror.archlinuxarm.org/aarch64/extra/libdrm-2.4.134-1-aarch64.pkg.tar.xz
+	tar -xf libdrm-2.4.134-1-aarch64.pkg.tar.xz -C "$ndkver"-linux &> /dev/null
+	sed -i 's#prefix=#&/'"$workdir"'/'"$ndkver"'-linux#g' ~/$workdir/"$ndkver"-linux/usr/lib/pkgconfig/libdrm.pc
+	
+
 
 	echo "Downloading mesa source (~50 MB) ..." $'\n'
 	curl "$mesasrc" --output mesa-main.zip &> /dev/null
@@ -87,7 +96,7 @@ endian = 'little'
 EOF
 
 	echo "Generating build files ..." $'\n'
-	meson build-android-aarch64 --cross-file "$workdir"/mesa-main/android-aarch64 -Dbuildtype=release -Dplatforms=android -Degl=false -Dplatform-sdk-version=$sdkver -Dandroid-stub=true -Dandroid-strict=false -Dgallium-drivers= -Dvulkan-drivers=freedreno -Dvulkan-beta=true -Dfreedreno-kmds=kgsl -Db_lto=false | tee "$workdir"/meson_log
+	meson build-android-aarch64 --cross-file "$workdir"/mesa-main/android-aarch64 -Dbuildtype=release -Dplatforms=android -Degl=false -Dplatform-sdk-version=$sdkver -Dandroid-stub=true -Dandroid-strict=false -Dgallium-drivers= -Dvulkan-drivers=freedreno -Dvulkan-beta=true -Dfreedreno-kmds=kgsl,msm -Db_lto=false | tee "$workdir"/meson_log
 
 	echo "Compiling build files ..." $'\n'
 	ninja -C build-android-aarch64 | tee "$workdir"/ninja_log
