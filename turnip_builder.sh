@@ -59,8 +59,8 @@ prepare_workdir(){
 	
 	echo "Downloading libdrm-devel from debian repository"
 	wget http://mirror.archlinuxarm.org/aarch64/extra/libdrm-2.4.134-1-aarch64.pkg.tar.xz
-	tar -xf libdrm-2.4.134-1-aarch64.pkg.tar.xz -C "$ndkver" &> /dev/null
-	sed -i 's#prefix=#&'"$workdir"'/'"$ndkver"'#g' "$workdir"/"$ndkver"/usr/lib/pkg-config/libdrm.pc
+	tar -xf libdrm-2.4.134-1-aarch64.pkg.tar.xz -C "$workdir"/"$ndkver" &> /dev/null
+	sed -i 's#prefix=#&'"$workdir"'/'"$ndkver"'#g' "$workdir"/"$ndkver"/usr/lib/pkgconfig/libdrm.pc
 	
 
 	echo "Downloading mesa source (~50 MB) ..." $'\n'
@@ -85,7 +85,7 @@ cpp = ['ccache', '$ndk/aarch64-linux-android$sdkver-clang++', '-fno-exceptions',
 c_ld = 'lld'
 cpp_ld = 'lld'
 strip = '$ndk/aarch64-linux-android-strip'
-pkgconfig = ['env', 'PKG_CONFIG_LIBDIR=NDKDIR/pkg-config', '/usr/bin/pkg-config']
+pkgconfig = ['env', 'PKG_CONFIG_LIBDIR=NDKDIR/pkgconfig', '/usr/bin/pkgconfig']
 [host_machine]
 system = 'android'
 cpu_family = 'aarch64'
