@@ -60,7 +60,7 @@ prepare_workdir(){
 	echo "Downloading libdrm-devel from debian repository"
 	wget http://mirror.archlinuxarm.org/aarch64/extra/libdrm-2.4.134-1-aarch64.pkg.tar.xz
 	tar -xf libdrm-2.4.134-1-aarch64.pkg.tar.xz -C "$ndkver"-linux &> /dev/null
-	sed -i 's#prefix=#&'"$workdir"'/'"$ndkver"'#g' "$workdir"/"$ndkver"/usr/lib/pkgconfig/libdrm.pc
+	sed -i 's#prefix=#&'"$workdir"'/'"$ndkver"'#g' "$workdir"/"$ndkver"/usr/lib/pkg-config/libdrm.pc
 	
 
 	echo "Downloading mesa source (~50 MB) ..." $'\n'
