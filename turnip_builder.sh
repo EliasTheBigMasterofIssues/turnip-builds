@@ -56,12 +56,11 @@ prepare_workdir(){
 	###
 	echo "Exracting android-ndk to a folder ..." $'\n'
 	unzip "$ndkver"-linux.zip  &> /dev/null
-	mkdir "$ndkver"-linux/pkgconfig/
 	
 	echo "Downloading libdrm-devel from debian repository"
 	wget http://mirror.archlinuxarm.org/aarch64/extra/libdrm-2.4.134-1-aarch64.pkg.tar.xz
 	tar -xf libdrm-2.4.134-1-aarch64.pkg.tar.xz -C "$ndkver"-linux &> /dev/null
-	sed -i 's#prefix=#&'"$workdir"'/'"$ndkver"'-linux#g' $workdir/"$ndkver"-linux/usr/lib/pkgconfig/libdrm.pc
+	sed -i 's#prefix=#&'"$workdir"'/'"$ndkver"'#g' "$workdir"/"$ndkver"/usr/lib/pkgconfig/libdrm.pc
 	
 
 	echo "Downloading mesa source (~50 MB) ..." $'\n'
