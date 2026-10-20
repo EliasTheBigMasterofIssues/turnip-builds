@@ -189,8 +189,6 @@ EOF
 
     cp "$workdir"/vulkan.adreno.so "$adrenotoolsdir"/vulkan.adreno.so
     cd $adrenotoolsdir
-    patchelf --set-soname vulkan.ad07xx.so vulkan.adreno.so
-    mv vulkan.adreno.so vulkan.ad07xx.so
    	zip -r "$workdir"/turnip_adrenotools.zip ./  &> /dev/null
     if ! [ -a "$workdir"/turnip_adrenotools.zip ];
 		then echo -e "$red-Packing failed!$nocolor" && exit 1
