@@ -176,14 +176,14 @@ generate_adrenotools(){
     cat <<EOF > "meta.json"
     {
       "schemaVersion": 1,
-      "name": "Mesa Turnip Driver v25.1.0-Devel",
+      "name": "Mesa Turnip Driver v27.0.0-Devel",
       "description": "Builded by CI based on KIMCHI releases .",
       "author": "MasterOfMistakes",
-      "packageVersion": "2",
+      "packageVersion": "devel",
       "vendor": "Mesa",
-      "driverVersion": "Vulkan 1.4.305",
+      "driverVersion": "Vulkan 1.4.363",
       "minApi": 30,
-      "libraryName": "vulkan.ad07xx.so"
+      "libraryName": "vulkan.adreno.so"
     }
 EOF
 
