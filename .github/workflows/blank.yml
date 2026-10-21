@@ -7,7 +7,7 @@ on:
 
 jobs:
   start_building_turnip:
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-25.04
     steps:
     - uses: actions/checkout@v3
 
@@ -17,7 +17,7 @@ jobs:
         sudo apt update
         sudo apt build-dep mesa -y
         sudo apt install libedit-dev
-        sudo apt install libzstd-dev libelf-dev libncurses-dev
+        sudo apt install libzstd-dev libelf-dev libncurses-dev pkg-config
     - name: Execute build script
       run: bash ./turnip_builder.sh
 
